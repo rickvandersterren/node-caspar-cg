@@ -2,18 +2,17 @@
 
 var events = require("events");
 var util = require("util");
-var _ = require("underscore");
 var count = 0;
 
 var ccg = module.exports = function (host, port) {
 	events.EventEmitter.call(this);
 
-	this.options = _.extend({}, this.options);
+	this.options = Object.assign({}, this.options);
 
 	if (typeof(host) == "string") {
 		this.options.host = host;
 	} else if (typeof(host) == "object") {
-		_.extend(this.options, host);
+		Object.assign(this.options, host);
 	}
 
 	if (port) {
@@ -35,7 +34,7 @@ ccg.prototype.options = {
 ccg.prototype.log = function () {
 	if (!this.options.debug) return;
 
-	var args = _.values(arguments);
+	var args = Object.values(arguments);
 	args.unshift("CCG" + this.index + ":");
 
 	console.log.apply(console, args);
